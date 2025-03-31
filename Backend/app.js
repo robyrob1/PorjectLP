@@ -85,4 +85,9 @@ app.use((err, _req, res, _next) => {                // General error formatter
   });
 });
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ message: 'Server error', errors: err.errors });
+});
+
 module.exports = app;
