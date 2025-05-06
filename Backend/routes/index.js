@@ -1,24 +1,21 @@
-// backend/routes/index.js
 const express = require('express');
-const router = express.Router();               // Create main router
-const apiRouter = require('./api');            // Import the API router
+const router = express.Router();
+
+const apiRouter = require('./api');
 
 // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
-  const csrfToken = req.csrfToken();          // Generate new CSRF token
-  res.cookie("XSRF-TOKEN", csrfToken);        // Set it as a cookie
+  const csrfToken = req.csrfToken();
+  res.cookie("XSRF-TOKEN", csrfToken);
   res.status(200).json({
-    'XSRF-Token': csrfToken                   // Also include it in the JSON response
+    'XSRF-Token': csrfToken
   });
 });
 
-// Connect the API router - all routes in apiRouter will be prefixed with '/api'
-router.use('/api', apiRouter);                // Mount the API router under the /api path
+router.get('/api', (req, res) => {
+  res.send('message');
+});
 
-// Remove this test route since we're no longer using it
-// router.get('/hello/world', function(req, res) {
-//   res.cookie('XSRF-TOKEN', req.csrfToken());
-//   res.send('Hello World!');
-// });
+router.use('/api', apiRouter);
 
-module.exports = router;                      // Export the main router
+module.exports = router;

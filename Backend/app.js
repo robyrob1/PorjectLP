@@ -1,36 +1,33 @@
-// backend/app.js
 const express = require('express');
-require('express-async-errors');                    // Automatically catches errors in async route handlers
-const morgan = require('morgan');                   // HTTP request logger
-const cors = require('cors');                       // Cross-Origin Resource Sharing
-const csurf = require('csurf');                     // CSRF protection
-const helmet = require('helmet');                   // Security headers
-const cookieParser = require('cookie-parser');      // Parse cookies from requests
-const { ValidationError } = require('sequelize');   // Import Sequelize validation error
+require('express-async-errors');
+const morgan = require('morgan');
+const cors = require('cors');
+const csurf = require('csurf');
+const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
+const { ValidationError } = require('sequelize');
 
-const { environment } = require('./config');        // Import environment configuration
-const isProduction = environment === 'production';  // Check if we're in production
-const routes = require('./routes');                 // Import routes
+const { environment } = require('./config');
+const isProduction = environment === 'production';
 
-const app = express();                              // Create Express application
+const routes = require('./routes');
 
-// Connect morgan middleware for logging
-app.use(morgan('dev'));                             // Log HTTP requests
+const app = express();
 
-// Parse cookies and JSON bodies
-app.use(cookieParser());                            // Parse Cookie header and populate req.cookies
-app.use(express.json());                            // Parse JSON request bodies
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(express.json());
 
-// Security middleware
+// Security Middleware
 if (!isProduction) {
-  // Enable CORS only in development
-  app.use(cors());                                  // Allow cross-origin requests in development
+  // enable cors only in development
+  app.use(cors());
 }
 
-// Helmet helps set security headers
+// helmet helps set a variety of headers to better secure your app
 app.use(
   helmet.crossOriginResourcePolicy({
-    policy: "cross-origin"                          // Allow loading resources from different origins
+    policy: "cross-origin"
   })
 );
 
@@ -38,20 +35,17 @@ app.use(
 app.use(
   csurf({
     cookie: {
-      secure: isProduction,                         // HTTPS only in production
-      sameSite: isProduction && "Lax",              // Controls when cookies are sent
-      httpOnly: true                                // Prevents JavaScript access to the cookie
+      secure: isProduction,
+      sameSite: isProduction && "Lax",
+      httpOnly: true
     }
   })
 );
 
-// Connect routes
-app.use(routes);                                    // Use our defined routes
-
-// --- ERROR HANDLING MIDDLEWARE BELOW ---
+app.use(routes);
 
 // Catch unhandled requests and forward to error handler.
-app.use((_req, _res, next) => {                     // 404 Not Found handler
+app.use((_req, _res, next) => {
   const err = new Error("The requested resource couldn't be found.");
   err.title = "Resource Not Found";
   err.errors = { message: "The requested resource couldn't be found." };
@@ -59,8 +53,7 @@ app.use((_req, _res, next) => {                     // 404 Not Found handler
   next(err);
 });
 
-// Process sequelize errors
-app.use((err, _req, _res, next) => {                // Sequelize error handler
+app.use((err, _req, _res, next) => {
   // check if error is a Sequelize error:
   if (err instanceof ValidationError) {
     let errors = {};
@@ -73,21 +66,15 @@ app.use((err, _req, _res, next) => {                // Sequelize error handler
   next(err);
 });
 
-// Error formatter
-app.use((err, _req, res, _next) => {                // General error formatter
+app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
   console.error(err);
   res.json({
     title: err.title || 'Server Error',
     message: err.message,
     errors: err.errors,
-    stack: isProduction ? null : err.stack          // Only include stack in development
+    stack: isProduction ? null : err.stack
   });
-});
-
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ message: 'Server error', errors: err.errors });
 });
 
 module.exports = app;

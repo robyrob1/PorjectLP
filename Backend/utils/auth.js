@@ -1,64 +1,61 @@
-// backend/utils/auth.js
-const jwt = require('jsonwebtoken');              // For creating and verifying JWTs
-const { jwtConfig } = require('../config');       // Import JWT configuration
-const { User } = require('../db/models');         // Import User model
+const jwt = require('jsonwebtoken');
+const { jwtConfig } = require('../config');
+const { User } = require('../db/models');
 
-const { secret, expiresIn } = jwtConfig;          // Extract JWT settings
+const { secret, expiresIn } = jwtConfig;
 
 // Sends a JWT Cookie
 const setTokenCookie = (res, user) => {
-  // Create the token with user data
-
+  // Create the token.
   const safeUser = {
     id: user.id,
     email: user.email,
     username: user.username,
-    firstName: user.firstName,                   // Include firstName in token
-    lastName: user.lastName                      // Include lastName in token
+    firstName: user.firstName,
+    lastName: user.lastName
   };
   const token = jwt.sign(
-    { data: safeUser },                           // Payload to encode in the JWT
-    secret,                                       // Secret key for signing
-    { expiresIn: parseInt(expiresIn) }            // Token expiration (604,800 seconds = 1 week)
+    { data: safeUser },
+    secret,
+    { expiresIn: parseInt(expiresIn) } // 604,800 seconds = 1 week
   );
 
   const isProduction = process.env.NODE_ENV === "production";
 
   // Set the token cookie
   res.cookie('token', token, {
-    maxAge: expiresIn * 1000,                     // maxAge in milliseconds
-    httpOnly: true,                               // Prevents JavaScript access
-    secure: isProduction,                         // HTTPS only in production
-    sameSite: isProduction && "Lax"               // Cross-site cookie policy
+    maxAge: expiresIn * 1000, // maxAge in milliseconds
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction && "Lax"
   });
 
   return token;
 };
 
-// Middleware that restores the user from a JWT token
 const restoreUser = (req, res, next) => {
   // token parsed from cookies
   const { token } = req.cookies;
-  req.user = null;                                // Default to no user
+  req.user = null;
 
   return jwt.verify(token, secret, null, async (err, jwtPayload) => {
     if (err) {
-      return next();                              // Continue if token invalid/missing
-    }
-
-    try {
-      const { id } = jwtPayload.data;             // Extract user ID from token
-      req.user = await User.findByPk(id, {        // Look up user in database
-        attributes: {
-          include: ['email', 'createdAt', 'updatedAt']  // Include fields normally excluded
-        }
-      });
-    } catch (e) {
-      res.clearCookie('token');                   // Clear invalid token
       return next();
     }
 
-    if (!req.user) res.clearCookie('token');      // Clear token if user not found
+    try {
+      const { id } = jwtPayload.data;
+      req.user = await User.findByPk(id, {
+        attributes: {
+          include: ['email', 'createdAt', 'updatedAt']
+        }
+      });
+    } catch (e) {
+      res.clearCookie('token');
+      return next();
+    }
+
+    if (!req.user) res.clearCookie('token');
 
     return next();
   });
@@ -66,13 +63,13 @@ const restoreUser = (req, res, next) => {
 
 // If there is no current user, return an error
 const requireAuth = function (req, _res, next) {
-  if (req.user) return next();                    // Continue if user exists
+  if (req.user) return next();
 
-  const err = new Error('Authentication required');  // Create error for unauthenticated requests
+  const err = new Error('Authentication required');
   err.title = 'Authentication required';
   err.errors = { message: 'Authentication required' };
-  err.status = 401;                               // 401 Unauthorized status code
-  return next(err);                               // Pass error to error handler
+  err.status = 401;
+  return next(err);
 }
 
 module.exports = { setTokenCookie, restoreUser, requireAuth };
