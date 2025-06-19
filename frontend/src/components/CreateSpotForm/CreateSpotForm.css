@@ -1,0 +1,83 @@
+/* Main form container styling */
+.long-form {
+  width: 500px; /* Fixed width for the form */
+  margin: 0 auto; /* Center the form on the page */
+  padding: 20px; /* Add some padding around the form */
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+/* Section styling within the form */
+.form__section {
+  width: 100%; /* Full width within container */
+  margin-bottom: 20px; /* Space between sections */
+}
+
+/* Location grid layout */
+.location {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr; /* Three columns with divider */
+  grid-gap: 10px; /* Space between grid items */
+  margin-bottom: 15px; /* Space below location section */
+}
+
+/* Input field styling */
+.form__input,
+.form__textarea {
+  display: block;
+  width: 95%; /* Almost full width */
+  padding: 10px; /* Comfortable padding */
+  margin-bottom: 15px; /* Space between fields */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px; /* Slightly rounded corners */
+  font-size: 16px; /* Readable font size */
+  color: #253659; /* Text color */
+  background-color: white; /* White background */
+}
+
+/* Textarea specific styling */
+.form__textarea {
+  height: 75px; /* Fixed height */
+  resize: vertical; /* Allow vertical resize only */
+}
+
+/* Placeholder styling for both inputs and textareas */
+.form__input::placeholder,
+.form__textarea::placeholder {
+  color: #999; /* Light gray placeholder */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  opacity: 0.7; /* Slightly transparent */
+}
+
+/* City input specific styling */
+.location__city-input {
+  width: 250px; /* Fixed width for city */
+}
+
+/* State input specific styling */
+.location__state-input {
+  width: 190px; /* Fixed width for state */
+}
+
+/* Price section styling */
+.price-section {
+  display: flex; /* Flex layout for price */
+  align-items: center; /* Center items vertically */
+  gap: 10px; /* Space between elements */
+  width: 97%; /* Almost full width */
+}
+
+/* Price input specific styling */
+.price-section__input {
+  flex-grow: 1; /* Take available space */
+}
+
+/* Divider in location grid */
+.location__divider {
+  background-color: #ddd; /* Light gray divider */
+  width: 1px; /* Thin divider */
+  height: 100%; /* Full height */
+}

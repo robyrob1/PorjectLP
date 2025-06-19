@@ -1,0 +1,58 @@
+/* Image Container */
+.spot-image-container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Spot Image */
+.spot-image {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.spot-image:hover {
+  transform: scale(1.05);
+}
+
+/* Image Tooltip */
+.spot-tooltip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #027373;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.spot-image-container:hover .spot-tooltip {
+  opacity: 1;
+}
+
+/* Top Line Layout */
+.spot-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Price and Rating */
+.spot-price {
+  font-weight: bold;
+}
+
+.spot-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

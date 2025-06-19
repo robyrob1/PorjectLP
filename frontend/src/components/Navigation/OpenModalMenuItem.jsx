@@ -1,24 +1,38 @@
-// frontend/src/components/Navigation/OpenModalMenuItem.jsx
-
-//import react from '../../../node_modules/react';
 import { useModal } from '../../context/Modal';
+import './OpenModalMenuItem.css';
 
 function OpenModalMenuItem({
-  modalComponent, // component to render inside the modal
-  itemText, // text of the menu item that opens the modal
-  onItemClick, // optional: callback function that will be called once the menu item that opens the modal is clicked
-  onModalClose // optional: callback function that will be called once the modal is closed
+  modalComponent,
+  itemText,
+  onItemClick,
+  onModalClose,
+  icon: IconComponent // Optional: icon component to display with text
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
-  const onClick = () => {
+  const handleMenuItemClick = () => {
     if (onModalClose) setOnModalClose(onModalClose);
     setModalContent(modalComponent);
-    if (typeof onItemClick === "function") onItemClick();
+    if (typeof onItemClick === 'function') onItemClick();
   };
 
   return (
-    <li onClick={onClick}>{itemText}</li>
+    <li 
+      className="modal-menu-item"
+      onClick={handleMenuItemClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && handleMenuItemClick()}
+    >
+      {IconComponent && (
+        <span className="modal-menu-item__icon">
+          <IconComponent />
+        </span>
+      )}
+      <span className="modal-menu-item__text">
+        {itemText}
+      </span>
+    </li>
   );
 }
 

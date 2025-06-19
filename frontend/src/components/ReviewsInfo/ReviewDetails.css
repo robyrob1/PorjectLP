@@ -1,0 +1,44 @@
+/* Review Item Base Styles */
+.review-item {
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Review Date Styling */
+.review-item__date {
+  color: #4a4a4a;
+  font-size: 0.875rem;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+/* Alternating Background Colors */
+.review-item--even {
+  background-color: #a9d9d0; /* Teal tint */
+  border-left: 3px solid #038a6b;
+}
+
+.review-item--odd {
+  background-color: #dfe3e4; /* Light gray */
+  border-left: 3px solid #7d8b92;
+}
+
+/* Hover Effects */
+.review-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .review-item {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .review-item__date {
+    font-size: 0.8125rem;
+  }
+}

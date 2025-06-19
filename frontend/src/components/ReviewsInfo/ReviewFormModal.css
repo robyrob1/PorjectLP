@@ -1,0 +1,40 @@
+/* Star Rating Styles */
+.star-container {
+  display: flex;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.star-container label {
+  cursor: pointer;
+}
+
+.star-container input {
+  display: none;
+}
+
+.star {
+  font-size: 24px;
+  color: #ccc;
+}
+
+.star-container input:checked ~ label .star,
+.star-container label:hover .star {
+  color: #ffcc00;
+}
+
+/* Text Area Styles */
+.review-text {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.review-text:focus {
+  outline: none;
+  border-color: #999;
+}
