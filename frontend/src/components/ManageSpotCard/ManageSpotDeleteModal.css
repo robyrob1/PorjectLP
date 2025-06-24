@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.delete-spot-modal-container {
+  font-family: 'Press Start 2P', cursive;
+  background-color: #1a1a2e;
+  color: #f5f5dc;
+  border: 4px ridge #ffcc00;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0 0 12px #000;
+}
+
+.delete-spot-modal-title {
+  font-size: 18px;
+  color: #ff5555;
+  margin-bottom: 20px;
+}
+
+.delete-spot-modal-message {
+  font-size: 12px;
+  color: #cccccc;
+  margin-bottom: 30px;
+}
+
+.delete-spot-modal-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.delete-spot-confirm-button,
+.delete-spot-cancel-button {
+  flex: 1;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 10px 16px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.delete-spot-confirm-button {
+  background-color: #8b0000;
+  color: #fff;
+}
+
+.delete-spot-cancel-button {
+  background-color: #006400;
+  color: #fff;
+}
+
+.delete-spot-confirm-button:hover {
+  background-color: #ff0000;
+  transform: scale(1.05);
+}
+
+.delete-spot-cancel-button:hover {
+  background-color: #00aa00;
+  transform: scale(1.05);
+}

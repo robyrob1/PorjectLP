@@ -1,65 +1,87 @@
-/* Dropdown Menu Button */
-.menu-button {
-  transition: color 0.2s ease;
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.profile-button-container {
+  position: relative;
+  font-family: 'MedievalSharp', cursive;
 }
 
-.menu-button:hover {
-  color: #333333;
+.profile-button__toggle {
+  background: url('/assets/icons/satchel-icon.png') no-repeat center;
+  background-size: 40px 40px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
 }
 
-/* Profile Dropdown Container */
 .profile-dropdown {
   position: absolute;
   right: 0;
-  top: 60px;
-  width: 200px;
-  padding: 12px 0;
-  background-color: #032837;
-  border: 1px solid #f5f5f5;
+  top: 55px;
+  width: 240px;
+  background-color: #1e1e2e;
+  border: 2px solid #d0b763;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   z-index: 1000;
+  padding: 12px;
+  color: #fefae0;
 }
 
 .profile-dropdown--hidden {
   display: none;
 }
 
-/* Dropdown Menu Items */
 .profile-dropdown__item {
   display: block;
-  width: 100%;
-  padding: 8px 16px;
+  padding: 10px;
   font-size: 16px;
-  color: #027373;
+  color: #fefae0;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .profile-dropdown__item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(208, 183, 99, 0.2);
 }
 
-/* Dropdown Links */
 .profile-dropdown__link {
-  display: block;
-  width: 100%;
-  color: #f5f5f5;
+  color: #fefae0;
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .profile-dropdown__link:hover {
-  color: #ffffff;
+  color: #ffef9f;
 }
 
-/* Specific Link Styles */
-.profile-dropdown__link[href="/spots/current"] {
-  color: #f5f5f5;
+.profile-dropdown__button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  cursor: pointer;
 }
 
-/* Profile Button Container */
-.profile-button__container {
-  width: 75%;
-  margin: 0 auto;
+.profile-dropdown__greeting {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #ffef9f;
+}
+
+.profile-dropdown__email {
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.profile-dropdown__button--logout {
+  color: #ff6b6b;
+}
+
+.profile-dropdown__button--logout:hover {
+  color: #ffa9a9;
 }

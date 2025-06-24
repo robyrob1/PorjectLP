@@ -1,83 +1,104 @@
-/* Main form container styling */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative&family=MedievalSharp&display=swap');
+
+/* Main container: styled like a scroll from a mage's library */
 .long-form {
-  width: 500px; /* Fixed width for the form */
-  margin: 0 auto; /* Center the form on the page */
-  padding: 20px; /* Add some padding around the form */
-  background-color: #f9f9f9; /* Light background color */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+  width: 520px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #f8f4e5; /* parchment-like */
+  border: 2px solid #5c3a1a;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'MedievalSharp', cursive;
 }
 
-/* Section styling within the form */
+/* Sections: labeled like scroll chapters */
 .form__section {
-  width: 100%; /* Full width within container */
-  margin-bottom: 20px; /* Space between sections */
+  width: 100%;
+  margin-bottom: 24px;
 }
 
-/* Location grid layout */
+/* Location Grid: like a fantasy map split */
 .location {
   display: grid;
-  grid-template-columns: 1fr 1px 1fr; /* Three columns with divider */
-  grid-gap: 10px; /* Space between grid items */
-  margin-bottom: 15px; /* Space below location section */
+  grid-template-columns: 1fr 2px 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
-/* Input field styling */
+.location__divider {
+  background-color: #5c3a1a;
+  width: 2px;
+  height: auto;
+}
+
+/* Inputs: styled like elven inscription boxes */
 .form__input,
 .form__textarea {
   display: block;
-  width: 95%; /* Almost full width */
-  padding: 10px; /* Comfortable padding */
-  margin-bottom: 15px; /* Space between fields */
-  border: 1px solid #ddd; /* Light border */
-  border-radius: 4px; /* Slightly rounded corners */
-  font-size: 16px; /* Readable font size */
-  color: #253659; /* Text color */
-  background-color: white; /* White background */
+  width: 96%;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  border: 1.5px solid #b2926b;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #2c1b0f;
+  background: #fff9ec;
+  font-family: 'Cinzel', serif;
 }
 
-/* Textarea specific styling */
+/* Textarea: spell description scroll */
 .form__textarea {
-  height: 75px; /* Fixed height */
-  resize: vertical; /* Allow vertical resize only */
+  height: 90px;
+  resize: vertical;
 }
 
-/* Placeholder styling for both inputs and textareas */
+/* Placeholder: magical whisper text */
 .form__input::placeholder,
 .form__textarea::placeholder {
-  color: #999; /* Light gray placeholder */
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  opacity: 0.7; /* Slightly transparent */
+  color: #8a7760;
+  font-style: italic;
+  opacity: 0.7;
 }
 
-/* City input specific styling */
+/* City input: enchanted kingdom */
 .location__city-input {
-  width: 250px; /* Fixed width for city */
+  width: 240px;
 }
 
-/* State input specific styling */
+/* State input: magical realm */
 .location__state-input {
-  width: 190px; /* Fixed width for state */
+  width: 190px;
 }
 
-/* Price section styling */
+/* Price Section: barter table layout */
 .price-section {
-  display: flex; /* Flex layout for price */
-  align-items: center; /* Center items vertically */
-  gap: 10px; /* Space between elements */
-  width: 97%; /* Almost full width */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 96%;
 }
 
-/* Price input specific styling */
+/* Coin pouch input */
 .price-section__input {
-  flex-grow: 1; /* Take available space */
+  flex-grow: 1;
 }
 
-/* Divider in location grid */
-.location__divider {
-  background-color: #ddd; /* Light gray divider */
-  width: 1px; /* Thin divider */
-  height: 100%; /* Full height */
+/* Submit button: enchanted gem */
+button.submit-button {
+  background: linear-gradient(to right, #7f5a2e, #d9a066);
+  color: #fffdf0;
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 18px;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
+
+button.submit-button:hover {
+  background: linear-gradient(to right, #9e6b3e, #f2c175);
+  box-shadow: 0 0 8px #f2c175;
+}
+

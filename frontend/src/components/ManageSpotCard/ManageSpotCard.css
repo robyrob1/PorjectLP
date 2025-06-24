@@ -1,6 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.manage-spot-card {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #1a1a2e;
+    border: 4px solid #ffcb05;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px #ffcb05;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+}
+
+.manage-spot-card h3 {
+    font-size: 1rem;
+    color: #fdfdfd;
+    margin-bottom: 10px;
+}
+
+.manage-spot-card img {
+    width: 100%;
+    border: 2px solid #ffcb05;
+    border-radius: 8px;
+    image-rendering: pixelated;
+}
+
+.manage-spot-card p {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    color: #ccc;
+}
+
 .spot-buttons {
     display: flex;
-    flex-direction: row;
-    border-radius: 10px;
-    gap: 5px;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 8px;
+}
+
+.spot-buttons button {
+    flex: 1;
+    padding: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.55rem;
+    background-color: #3a0ca3;
+    color: #fff;
+    border: 2px solid #7209b7;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.spot-buttons button:hover {
+    background-color: #560bad;
 }

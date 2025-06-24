@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.spot-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: #1e1e2e;
+  font-family: 'Press Start 2P', cursive;
+  box-sizing: border-box;
+}
+
+.spot-list > * {
+  background: #2d2d44;
+  border: 3px solid #ffaa00;
+  box-shadow: 0 0 6px #ffaa00;
+  padding: 1rem;
+  border-radius: 12px;
+  color: #fff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.spot-list > *:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}

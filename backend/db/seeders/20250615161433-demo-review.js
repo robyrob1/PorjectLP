@@ -1,62 +1,61 @@
 'use strict';
 const { Review } = require('../models');
-const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;
 }
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await Review.bulkCreate([
       {
         spotId: 1,
         userId: 2,
-        review: "Wonderful Alaskan get away in the woods, with moutain views.",
+        review: "A peaceful retreat in the Elderwood Realm. The view from the mage tower is divine!",
         stars: 5,
       },
       {
         spotId: 2,
         userId: 3,
-        review: "Can't beat walks in the vineyard with a glass of wine in hand!",
+        review: "Charming elven vineyard. We drank mead under starlight and watched fairies dance.",
         stars: 5,
       },
       {
         spotId: 3,
         userId: 1,
-        review: "Perfect spot to attend a show at the closest venue!",
+        review: "The bard guild was just a few steps away—perfect for post-quest revelry.",
         stars: 5,
       },
       {
         spotId: 5,
         userId: 2,
-        review: "This place made all my childhood dreams of living in a treehouse come true! ",
+        review: "Lived like a forest ranger in a treehouse hideout—absolute dream!",
         stars: 5,
       },
       {
         spotId: 7,
         userId: 3,
-        review: "So many lovely resturaunts near by!",
+        review: "Close to the town square—great place to rest between dungeon runs.",
         stars: 4,
       },
       {
         spotId: 1,
         userId: 3,
-        review: "I booked this spot in the perfect time for fishing season. I caught my limit in only a few hours!",
+        review: "Caught legendary trout in the nearby Mystic Lake. Will bring the guild next time!",
         stars: 4,
       },
       {
         spotId: 2,
         userId: 1,
-        review: "Walking through the vines with my new favorite glass of wine was just what I needed!",
+        review: "Moonlit vineyard strolls were enchanting. Got a bottle of enchanted elderberry wine!",
         stars: 5,
       },
-    ], { validate: true })
+    ], { validate: true });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     options.tableName = 'Reviews';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {

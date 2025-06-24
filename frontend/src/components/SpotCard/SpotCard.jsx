@@ -13,7 +13,7 @@ const SpotCard = ({ spot }) => {
   return (
     <div className="spot-card" onClick={goToSpot}>
       <div 
-        className="image-container" 
+        className="spot-image-container" 
         onMouseEnter={showName}
         onMouseLeave={hideName}
       >
