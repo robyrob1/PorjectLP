@@ -1,42 +1,48 @@
 'use strict';
 
 const { SpotImage } = require('../models');
+
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;
+  options.schema = process.env.SCHEMA;   
 }
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up () {
     await SpotImage.bulkCreate([
+
       {
         spotId: 1,
-        url: 'https://cdn.pixabay.com/photo/2023/05/10/06/12/fantasy-cottage-1234567_1280.jpg',
+        url: 'https://cdn.pixabay.com/photo/2025/06/25/11/41/cottage-9679754_1280.png', 
         preview: true,
       },
       {
         spotId: 1,
-        url: 'https://cdn.pixabay.com/photo/2022/11/15/10/00/medieval-castle-7654321_1280.jpg',
+        url: 'https://cdn.pixabay.com/photo/2022/08/13/18/25/river-7384240_640.jpg',   
         preview: false,
+      },
+
+
+      {
+        spotId: 2,
+        url: 'https://cdn.pixabay.com/photo/2024/04/05/12/20/ai-generated-8677313_1280.jpg', 
+        preview: true,
       },
       {
         spotId: 2,
-        url: 'https://cdn.pixabay.com/photo/2024/01/20/08/45/fantasy-map-2345678_1280.png',
-        preview: true,
-      },
-      {
-        spotId: 2,
-        url: 'https://cdn.pixabay.com/photo/2023/08/05/14/20/forest-cottage-3456789_1280.jpg',
+        url: 'https://cdn.pixabay.com/photo/2019/12/14/19/18/sunset-4695551_1280.jpg',      
         preview: false,
       },
+
+
       {
         spotId: 3,
-        url: 'https://cdn.pixabay.com/photo/2024/02/11/09/30/rpg-landscape-4567890_1280.jpg',
+        url: 'https://cdn.pixabay.com/photo/2017/08/14/14/34/fantasy-2640686_1280.jpg',      // dragon-guarded cave entrance
         preview: true,
       },
       {
         spotId: 3,
-        url: 'https://cdn.pixabay.com/photo/2023/12/01/12/00/dragon-cave-5678901_1280.jpg',
+        url: 'https://cdn.pixabay.com/photo/2023/03/29/15/49/fantasy-7885836_1280.jpg',      // bottled arcane landscape
         preview: false,
       }
     ], { validate: true });
@@ -44,7 +50,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     options.tableName = 'SpotImages';
-    const Op = Sequelize.Op;
+    const { Op } = Sequelize;
     return queryInterface.bulkDelete(options, {
       spotId: { [Op.in]: [1, 2, 3] }
     }, {});

@@ -59,7 +59,7 @@ function LoginFormModal() {
       <form className="login-form" onSubmit={handleFormSubmit}>
         <div className="form-field-container">
           <label className="form-label">
-            Username or Email
+            Email
             <input
               className="form-input"
               type="text"

@@ -7,7 +7,6 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await Spot.bulkCreate([
@@ -94,7 +93,7 @@ module.exports = {
         name: "Alchemist’s Roost in Wyrmsgate",
         description: "Centrally located in the spellbound capital, this modest study above a potion shop is ideal for aspiring wizards. Fresh ingredients await at the arcane market just two blocks away.",
         price: 49
-      },
+      }
     ], { validate: true });
   },
 
