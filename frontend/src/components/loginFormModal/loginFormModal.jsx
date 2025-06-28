@@ -5,66 +5,60 @@ import { useModal } from '../../context/Modal';
 import './LoginForm.css';
 
 function LoginFormModal() {
-  const dispatchFunction = useDispatch();
-  const { closeModalFunction } = useModal();
+  const dispatch = useDispatch();
+  const { closeModal } = useModal();
 
-  const [userCredential, setUserCredential] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [formErrors, setFormErrors] = useState({});
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    setFormErrors({});
-    
-    return dispatchFunction(
-      sessionActions.login({ 
-        credential: userCredential, 
-        password: userPassword 
-      })
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+
+    return dispatch(
+      sessionActions.login({ credential, password })
     )
-    .then(closeModalFunction)
-    .catch(async (response) => {
-      const errorData = await response.json();
-      if (errorData && errorData.errors) {
-        setFormErrors(errorData.errors);
-      }
-    });
+      .then(() => closeModal())
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
   };
 
-  const handleDemoUserLogin = (event) => {
-    event.preventDefault();
-    setFormErrors({});
-    
-    return dispatchFunction(
-      sessionActions.login({ 
-        credential: "Demo-lition", 
-        password: "password" 
-      })
+  const handleDemoUserLogin = (e) => {
+    e.preventDefault();
+    setErrors({});
+
+    return dispatch(
+      sessionActions.login({ credential: "Demo-lition", password: "password" })
     )
-    .then(closeModalFunction)
-    .catch(async (response) => {
-      const errorData = await response.json();
-      if (errorData && errorData.errors) {
-        setFormErrors(errorData.errors);
-      }
-    });
+      .then(() => closeModal())
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
   };
 
-  const isSubmitDisabled = userCredential.length < 4 || userPassword.length < 6;
+  const isSubmitDisabled = credential.length < 4 || password.length < 6;
 
   return (
     <div className="login-modal-container">
       <h1 className="login-modal-title">Log In</h1>
-      
+
       <form className="login-form" onSubmit={handleFormSubmit}>
         <div className="form-field-container">
           <label className="form-label">
-            Email
+            Username
             <input
               className="form-input"
               type="text"
-              value={userCredential}
-              onChange={(event) => setUserCredential(event.target.value)}
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
               required
             />
           </label>
@@ -76,30 +70,28 @@ function LoginFormModal() {
             <input
               className="form-input"
               type="password"
-              value={userPassword}
-              onChange={(event) => setUserPassword(event.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </label>
         </div>
 
-        {formErrors.credential && (
-          <p className="form-error-message">
-            {formErrors.credential}
-          </p>
+        {errors.credential && (
+          <p className="form-error-message">{errors.credential}</p>
         )}
 
         <div className="form-buttons-container">
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="login-submit-button"
             disabled={isSubmitDisabled}
           >
             Log In
           </button>
-          
-          <button 
-            type="button" 
+
+          <button
+            type="button"
             className="demo-user-button"
             onClick={handleDemoUserLogin}
           >

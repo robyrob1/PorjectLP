@@ -1,5 +1,9 @@
 'use strict';
 
+
+//Sourced ai for images
+
+
 const { ReviewImage } = require('../models');
 
 let options = {};
@@ -12,23 +16,23 @@ module.exports = {
     await ReviewImage.bulkCreate([
       {
         reviewId: 1,
-        url: 'https://cdn.pixabay.com/photo/2024/07/01/04/28/mountain-8864325_1280.jpg'
+        url: '/image7.jpg'
       },
       {
         reviewId: 2,
-        url: 'https://cdn.pixabay.com/photo/2023/11/15/18/10/fantasy-8389437_1280.jpg'
+        url: '/image8.jpg'
       },
       {
         reviewId: 3,
-        url: 'https://cdn.pixabay.com/photo/2024/04/14/03/15/ai-generated-8694734_1280.jpg'
+        url: '/image9.jpg'
       },
       {
         reviewId: 4,
-        url: 'https://cdn.pixabay.com/photo/2024/06/18/21/14/magic-8849017_1280.jpg'
+        url: '/image10.jpg'
       },
       {
         reviewId: 5,
-        url: 'https://cdn.pixabay.com/photo/2024/05/10/10/13/ai-generated-8752761_1280.jpg'
+        url: '/image11.jpg'
       }
     ], { validate: true });
   },

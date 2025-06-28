@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
+  margin:0 auto;
+  width: 100%;
   font-family: 'Press Start 2P', cursive;
   background-color: #0f0f1a;
   color: #e3c78a;
