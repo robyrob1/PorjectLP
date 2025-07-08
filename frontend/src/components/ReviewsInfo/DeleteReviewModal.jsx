@@ -1,52 +1,53 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import './DeleteReviewModal.css';
-import * as reviewActions from '../../store/reviews';
-import * as spotActions from '../../store/spots';
+// DeleteReviewModal.jsx
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as reviewActions from "../../store/reviews";
+import * as spotActions from "../../store/spots";
+import "./DeleteReviewModal.css";
 
-const DeleteReviewModal = ({ reviewId, spotId }) => {
-  const dispatch = useDispatch();
+function DeleteReviewModal({ reviewId, spotId }) {
+  const dispatch   = useDispatch();
   const { closeModal } = useModal();
-  const currentSpotId = useSelector((state) => state.spots.id);
 
-  const handleDeleteReview = async (event) => {
-    event.preventDefault();
-    
+  // ————————— handlers —————————
+  const handleConfirm = async (e) => {
+    e.preventDefault();
+
     try {
-      await dispatch(reviewActions.deleteReviewsThunk(reviewId, currentSpotId));
+      // delete review ➜ update spot data ➜ close modal
+      await dispatch(reviewActions.deleteReviewsThunk(reviewId));
       await dispatch(spotActions.readSpotThunk(spotId));
       closeModal();
-    } catch (error) {
-      console.error('Error deleting review:', error);
-      // You could add error state handling here
+    } catch (err) {
+      console.error("Failed to delete review:", err);
+      // (optional) surface an error toast / state here
     }
   };
 
+  // ————————— UI —————————
   return (
     <div className="delete-review-modal">
       <h1 className="delete-review-modal__title">Confirm Delete</h1>
-      
-      <div className="delete-review-modal__message">
-        Are you sure you want to delete this review?
-      </div>
 
-      <div className="delete-review-modal__buttons">
-        <button
-          onClick={handleDeleteReview}
-          className="delete-review-modal__button delete-review-modal__button--confirm"
-        >
-          Yes (Delete Review)
-        </button>
-        
-        <button
-          onClick={closeModal}
-          className="delete-review-modal__button delete-review-modal__button--cancel"
-        >
-          No (Keep Review)
-        </button>
-      </div>
+      <p className="delete-review-modal__message">
+        Are you sure you want to delete this review?
+      </p>
+
+      <button
+        className="delete-review-modal__btn delete-review-modal__btn--confirm"
+        onClick={handleConfirm}
+      >
+        Yes (Delete Review)
+      </button>
+
+      <button
+        className="delete-review-modal__btn delete-review-modal__btn--cancel"
+        onClick={closeModal}
+      >
+        No (Keep Review)
+      </button>
     </div>
   );
-};
+}
 
 export default DeleteReviewModal;

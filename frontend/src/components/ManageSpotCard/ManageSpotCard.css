@@ -53,3 +53,7 @@
 .spot-buttons button:hover {
     background-color: #560bad;
 }
+
+.manage-spot-image{
+   width: 300px;
+}

@@ -1,0 +1,55 @@
+/* DeleteReviewModal.css */
+.delete-review-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  position: absolute;
+  top: 100px;
+  left: 38%;
+  background-color: #1e1e2e;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  margin: auto;
+  color: #f5e6c8;
+  font-family: "Press Start 2P", cursive;
+  box-shadow: 0 0 15px #00f0ff;
+}
+
+.delete-review-modal__title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.delete-review-modal__message {
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.delete-review-modal__btn {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.delete-review-modal__btn:hover {
+  opacity: 0.9;
+}
+
+.delete-review-modal__btn--confirm {
+  background: #d92020;          /* red */
+  color: #fff;
+}
+
+.delete-review-modal__btn--cancel {
+  background: #404040;          /* dark grey */
+  color: #fff;
+}

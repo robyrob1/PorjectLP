@@ -34,7 +34,7 @@ const SpotDetailsPage = () =>{
     return isLoaded ? (
         <div className="page">
             <SpotInfo spotDetails={spotDetails[spotId]}/>
-            <ReviewInfo spotDetails={spotDetails[spotId]} currUser={currUser} spotId={spotId}/>
+           
         </div>
           
  

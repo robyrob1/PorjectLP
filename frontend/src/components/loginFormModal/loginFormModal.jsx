@@ -33,7 +33,7 @@ function LoginFormModal() {
     setErrors({});
 
     return dispatch(
-      sessionActions.login({ credential: "Demo-lition", password: "password" })
+      sessionActions.login({ credential: "ranger@forestwatch.org", password: "shadowpath" })
     )
       .then(() => closeModal())
       .catch(async (res) => {

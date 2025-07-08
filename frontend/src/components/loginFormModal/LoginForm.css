@@ -1,4 +1,7 @@
 .login-modal-container {
+  position: absolute;
+  top: 100px;
+  left: 38%;
   background-color: #1e1e2e;
   padding: 30px;
   border-radius: 12px;

@@ -1,4 +1,8 @@
+// SpotInfo.jsx
 import "./SpotInfo.css";
+import ReviewInfo from "../ReviewsInfo/ReviewInfo";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const SpotInfo = ({ spotDetails }) => {
   const {
@@ -11,21 +15,31 @@ const SpotInfo = ({ spotDetails }) => {
     name,
     numReviews,
     price,
-    state
+    state,
+    // Reviews = []
   } = spotDetails;
 
+  const { spotId } = useParams();
+  const currentUser = useSelector((state) => state.session.user);
+
   const handleReserveClick = () => {
-    alert('Feature Coming Soon...');
+    alert("Feature Coming Soon...");
   };
 
   const formatRatingText = () => {
     if (!avgStarRating) return "New";
-    return `${avgStarRating.toFixed(1)}${numReviews ? `・${numReviews} ${numReviews === 1 ? 'review' : 'reviews'}` : ''}`;
+    return `${avgStarRating.toFixed(1)}${numReviews ? `・${numReviews} ${numReviews === 1 ? "review" : "reviews"}` : ""}`;
   };
 
   const sortedImages = SpotImages.sort((a, b) => b.preview - a.preview);
   const mainImage = sortedImages[0];
-  const otherImages = sortedImages.slice(1, 5); // limit to 4 thumbnails
+  const otherImages = sortedImages.slice(1, 5); 
+
+  // ——— Logic for showing "Post Your Review" ———
+  // const userIsLoggedIn = !!currentUser;
+  // const isOwner = currentUser?.id === Owner?.id;
+  // const userHasReviewed = Reviews.some((rev) => rev.userId === currentUser?.id);
+  // const canPostReview = userIsLoggedIn && !isOwner && !userHasReviewed;
 
   return (
     <div className="page">
@@ -54,6 +68,8 @@ const SpotInfo = ({ spotDetails }) => {
         <div className="spot-description">
           <h3>Hosted by {Owner.firstName} {Owner.lastName}</h3>
           <p>{description}</p>
+
+          
         </div>
 
         <div className="booking-card">
@@ -68,6 +84,13 @@ const SpotInfo = ({ spotDetails }) => {
           </button>
         </div>
       </div>
+
+      {/* Inject Review section here */}
+      <ReviewInfo
+        spotDetails={spotDetails}
+        currUser={currentUser}
+        spotId={Number(spotId)}
+      />
     </div>
   );
 };

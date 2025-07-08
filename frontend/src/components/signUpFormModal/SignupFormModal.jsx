@@ -1,167 +1,136 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import * as sessionActions from '../../store/session';
-import './SignupForm.css';
+// SignupFormModal.jsx
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
+import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  
-  // Form state
-  const [formData, setFormData] = useState({
-    email: '',
-    username: '',
-    firstName: '',
-    lastName: '',
-    password: '',
-    confirmPassword: ''
-  });
+
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+  const validate = () => {
+    const e = {};
+    if (!email) e.email = "Email is required";
+    if (username.length < 4) e.username = "Username must be at least 4 characters";
+    if (!firstName) e.firstName = "First name is required";
+    if (!lastName) e.lastName = "Last name is required";
+    if (password.length < 6) e.password = "Password must be at least 6 characters";
+    if (password !== confirmPassword) e.confirmPassword = "Passwords must match";
+    return e;
   };
 
-  // Form validation
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.username || formData.username.length < 4) {
-      newErrors.username = 'Username must be at least 4 characters';
-    }
-    if (!formData.firstName) newErrors.firstName = 'First name is required';
-    if (!formData.lastName) newErrors.lastName = 'Last name is required';
-    if (!formData.password || formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords must match';
-    }
-    
-    return newErrors;
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
-    }
-    
+    const valErrs = validate();
+    if (Object.keys(valErrs).length) return setErrors(valErrs);
+
     try {
       await dispatch(sessionActions.signup({
-        email: formData.email,
-        username: formData.username,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        password: formData.password
+        email,
+        username,
+        firstName,
+        lastName,
+        password
       }));
       closeModal();
-    } catch (error) {
-      if (error.errors) {
-        setErrors(error.errors);
-      }
+    } catch (res) {
+      const data = await res.json();
+      if (data?.errors) setErrors(data.errors);
     }
   };
 
-  // Check if form is complete
-  const isFormComplete = (
-    formData.email &&
-    formData.username.length >= 4 &&
-    formData.firstName &&
-    formData.lastName &&
-    formData.password.length >= 6 &&
-    formData.confirmPassword &&
-    formData.password === formData.confirmPassword
-  );
+  const isDisabled = !!Object.keys(validate()).length;
 
   return (
-    <div className="signup-form">
-      <h1>Sign Up</h1>
-      
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email</label>
+    <div className="signup-modal-container">
+      <h1 className="signup-modal-title">Sign Up</h1>
+
+      <form className="signup-form" onSubmit={handleSubmit}>
+        {/* EMAIL */}
+        <label className="form-label">
+          Email
           <input
+            className="form-input"
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
-          {errors.email && <p className="error">{errors.email}</p>}
-        </div>
+        </label>
+        {errors.email && <p className="form-error-message">{errors.email}</p>}
 
-        <div className="form-group">
-          <label>Username</label>
+        {/* USERNAME */}
+        <label className="form-label">
+          Username
           <input
+            className="form-input"
             type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
+            value={username}
+            onChange={e => setUsername(e.target.value)}
           />
-          {errors.username && <p className="error">{errors.username}</p>}
-        </div>
+        </label>
+        {errors.username && <p className="form-error-message">{errors.username}</p>}
 
-        <div className="form-group">
-          <label>First Name</label>
+        {/* FIRST / LAST */}
+        <label className="form-label">
+          First Name
           <input
+            className="form-input"
             type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
           />
-          {errors.firstName && <p className="error">{errors.firstName}</p>}
-        </div>
+        </label>
+        {errors.firstName && <p className="form-error-message">{errors.firstName}</p>}
 
-        <div className="form-group">
-          <label>Last Name</label>
+        <label className="form-label">
+          Last Name
           <input
+            className="form-input"
             type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
           />
-          {errors.lastName && <p className="error">{errors.lastName}</p>}
-        </div>
+        </label>
+        {errors.lastName && <p className="form-error-message">{errors.lastName}</p>}
 
-        <div className="form-group">
-          <label>Password</label>
+        {/* PASSWORDS */}
+        <label className="form-label">
+          Password
           <input
+            className="form-input"
             type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
           />
-          {errors.password && <p className="error">{errors.password}</p>}
-        </div>
+        </label>
+        {errors.password && <p className="form-error-message">{errors.password}</p>}
 
-        <div className="form-group">
-          <label>Confirm Password</label>
+        <label className="form-label">
+          Confirm Password
           <input
+            className="form-input"
             type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
           />
-          {errors.confirmPassword && (
-            <p className="error">{errors.confirmPassword}</p>
-          )}
-        </div>
+        </label>
+        {errors.confirmPassword && (
+          <p className="form-error-message">{errors.confirmPassword}</p>
+        )}
 
-        <button 
-          type="submit" 
-          className="submit-button"
-          disabled={!isFormComplete}
+        <button
+          type="submit"
+          className="signup-submit-button"
+          disabled={isDisabled}
         >
           Sign Up
         </button>
